@@ -20,17 +20,18 @@ public class SeekBehavior implements SteeringBehavior{
 		Vector2 force = calculateSteeringForce(character);
 		character.applyForce(force);
 	}
-	public Vector2 calculateSeekDir(ControlledCharacter character) {
-		Vector2 diff = getTarget().cpy().sub(character.getPosition());
-		return diff.nor();
-	}
-	public Vector2 calculateSeekVelocity(ControlledCharacter character) {
-		return calculateSeekDir(character).scl(character.getVelocityMag());
+	public Vector2 calculateSteeringForce(ControlledCharacter character) {
+		return calculateSteeringDir(character).scl(character.getDeltaVelocity());
 	}
 	public Vector2 calculateSteeringDir(ControlledCharacter character){
 		return calculateSeekVelocity(character).sub(character.getVelocity()).nor();
 	}
-	public Vector2 calculateSteeringForce(ControlledCharacter character) {
-		return calculateSteeringDir(character).scl(character.getDeltaVelocity());
+	public Vector2 calculateSeekVelocity(ControlledCharacter character) {
+		return calculateSeekDir(character).scl(character.getVelocityMag());
+	}
+	
+	public Vector2 calculateSeekDir(ControlledCharacter character) {
+		Vector2 diff = getTarget().cpy().sub(character.getPosition());
+		return diff.nor();
 	}
 }
