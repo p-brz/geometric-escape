@@ -1,12 +1,13 @@
 package org.example.game.prototypes;
 
 import org.example.game.physics.GameWorld;
-import org.example.game.physics.RectangularBody;
+import org.example.game.physics.bodies.RectangularBody;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class PrototypeBox2D extends ApplicationAdapter{
 	public class Constants {
@@ -23,22 +24,33 @@ public class PrototypeBox2D extends ApplicationAdapter{
 
 	}
 
-	// This will be our viewport measurements while working with the debug renderer
-    private static final int VIEWPORT_WIDTH = 20;
-    private static final int VIEWPORT_HEIGHT = 13;
+	/** Medidas do Viewport utilizadas com o debug renderer
+	  	Viewport corresponde ao tamanho da tela em uma unidade qualquer (?).
+	  	Ele permite, neste caso, mapear as dimensões do mundo (Box2d) para a tela.
+	  	Valores maiores farão com que a câmera exiba uma área maior do mundo e, com isto,
+	  	os objetos do mundo parecerão menores (como se reduzisse o zoom).*/
+    protected static final int VIEWPORT_WIDTH = 20;
+    protected static final int VIEWPORT_HEIGHT = 13;
 
     private OrthographicCamera camera;
 
     private GameWorld gameWorld;
+    
+    protected Body dynamicBody;
+    protected Body staticBody;
+    
+    protected GameWorld getGameWorld(){
+    	return gameWorld;
+    }
     
     @Override
     public void create() {
     	super.create();
     	
     	gameWorld = new GameWorld();
-        gameWorld.createStatic(new Vector2(Constants.GROUND_X, Constants.GROUND_Y)
+        staticBody = gameWorld.createStatic(new Vector2(Constants.GROUND_X, Constants.GROUND_Y)
 							, new RectangularBody(Constants.GROUND_WIDTH, Constants.GROUND_HEIGHT));
-        gameWorld.createDynamic(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y)
+        dynamicBody = gameWorld.createDynamic(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y)
         					, new RectangularBody(Constants.RUNNER_WIDTH, Constants.RUNNER_HEIGHT));
         
         setupCamera();
@@ -58,7 +70,7 @@ public class PrototypeBox2D extends ApplicationAdapter{
         draw();
     }
 
-	private void update(float delta) {
+	public void update(float delta) {
 		gameWorld.update(delta);
 	}
 

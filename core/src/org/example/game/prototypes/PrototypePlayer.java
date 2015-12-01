@@ -1,12 +1,10 @@
 package org.example.game.prototypes;
 
 import org.example.game.player.PlayPlayer;
-import org.example.game.steering.Steerable;
-import org.example.game.steering.SteeringBehavior;
+import org.example.game.steering.BasicSteerable;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

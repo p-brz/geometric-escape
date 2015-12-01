@@ -1,9 +1,6 @@
 package org.example.game;
 
-import org.example.game.prototypes.PrototypeBox2D;
-import org.example.game.prototypes.PrototypeBox2DSteerable;
-import org.example.game.prototypes.PrototypePathFollowingBehavior;
-import org.example.game.prototypes.PrototypePlayer;
+import org.example.game.prototypes.PrototypeCollisionDetection;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -12,7 +9,8 @@ public class GameChooser {
 //		return new GrafosGame();
 //		return new PrototypeSeekBehavior();
 //		return new PrototypePathFollowingBehavior();
-		return new PrototypeBox2DSteerable();
 //		return new PrototypePlayer();	
+//		return new PrototypeBox2DSteerable();
+		return new PrototypeCollisionDetection();
 	}
 }

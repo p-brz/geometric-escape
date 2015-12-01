@@ -1,5 +1,6 @@
 package org.example.game.prototypes;
 
+import org.example.game.steering.BasicSteerable;
 import org.example.game.steering.SteeringBehavior;
 
 import com.badlogic.gdx.ApplicationAdapter;

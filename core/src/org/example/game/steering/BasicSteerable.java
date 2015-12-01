@@ -1,6 +1,4 @@
-package org.example.game.prototypes;
-
-import org.example.game.steering.Steerable;
+package org.example.game.steering;
 
 import com.badlogic.gdx.math.Vector2;
 

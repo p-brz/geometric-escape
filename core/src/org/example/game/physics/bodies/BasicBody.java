@@ -1,4 +1,4 @@
-package org.example.game.physics;
+package org.example.game.physics.bodies;
 
 public abstract class BasicBody implements PhysicalBody{
 	private Material material;
