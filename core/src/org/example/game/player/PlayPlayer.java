@@ -1,13 +1,13 @@
 package org.example.game.player;
 
-import org.example.game.steering.ControlledCharacter;
+import org.example.game.steering.Steerable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class PlayPlayer 
 {
-	public void controllPlayer(ControlledCharacter character)
+	public void controllPlayer(Steerable character)
 	{
 		boolean up = Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP);
 		boolean left = Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT);
@@ -28,7 +28,7 @@ public class PlayPlayer
 		else character.getVelocity().x = 0;
 		
 		character.getVelocity().nor().scl(character.getVelocityMag());
-		
+		character.update();
 	}
 
 }

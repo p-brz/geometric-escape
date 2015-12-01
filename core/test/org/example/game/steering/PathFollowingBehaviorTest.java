@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PathFollowingBehaviorTest {
 	private static final Vector2 anyVel = new Vector2(1f,2f);
 	private PathFollowingBehavior behaviour;
-	private ControlledCharacter character;
+	private Steerable character;
 	private float velocityMag = 5f, deltaVelocityMag = 1f;
 	
 	private List<Vector2> path;
@@ -25,7 +25,7 @@ public class PathFollowingBehaviorTest {
 	@Before
 	public void setup(){
 		behaviour = new PathFollowingBehavior();
-		character = mock(ControlledCharacter.class);
+		character = mock(Steerable.class);
 		
 		path = Arrays.asList(new Vector2(0,0), new Vector2(5,0), new Vector2(5,7)
 							, new Vector2(5,0));

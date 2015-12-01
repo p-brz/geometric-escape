@@ -1,21 +1,20 @@
 package org.example.game.prototypes;
 
-import org.example.game.steering.ControlledCharacter;
+import org.example.game.steering.Steerable;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class PrototypeCharacter implements ControlledCharacter{
+public class BasicSteerable implements Steerable{
 	Vector2 position, velocity;
 	float velocityMagnitude;
 	float deltaVelocity;
 	
-	public PrototypeCharacter() {
+	public BasicSteerable() {
 		position = new Vector2(0,0);
 		velocity = new Vector2(0,0);
 		velocityMagnitude = 5f;
 		deltaVelocity = 1f;
 	}
-	
 	
 	@Override
 	public Vector2 getPosition() {
@@ -41,7 +40,10 @@ public class PrototypeCharacter implements ControlledCharacter{
 	public void applyForce(Vector2 force) {
 		velocity.add(force);
 	}
-	void update(){
+	
+	@Override
+	public void update()
+	{
 		position.add(velocity);
 	}
 }

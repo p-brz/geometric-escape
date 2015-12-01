@@ -22,6 +22,7 @@ public class GameWorld {
     
     public GameWorld() {
     	world = new World(Vector2.Zero, true);
+    	//world = new World(new Vector2(20, 20), true);// gravidade enclinada
     	renderer = new Box2DDebugRenderer();
     	bodyCreator = new BodyCreator(world);
     }

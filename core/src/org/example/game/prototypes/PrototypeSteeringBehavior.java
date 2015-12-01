@@ -16,7 +16,7 @@ public abstract class PrototypeSteeringBehavior extends ApplicationAdapter {
 	protected Sprite spriteChar;
 	
 	
-	protected PrototypeCharacter character;
+	protected BasicSteerable character;
 	protected SteeringBehavior behavior;
 	
 	@Override
@@ -26,7 +26,7 @@ public abstract class PrototypeSteeringBehavior extends ApplicationAdapter {
 		spriteChar = new Sprite(img);
 		spriteChar.setSize(80, 80);
 		
-		character = new PrototypeCharacter();
+		character = new BasicSteerable();
 		
 		behavior = createBehavior();
 	}

@@ -49,14 +49,14 @@ public class PathFollowingBehavior implements SteeringBehavior{
 	}
 
 	@Override
-	public void apply(ControlledCharacter character) {
+	public void apply(Steerable character) {
 		if(verifyTarget(character)){
 			seekBehaviour.setTarget(getCurrentTarget());
 			seekBehaviour.apply(character);
 		}
 	}
 
-	boolean verifyTarget(ControlledCharacter character) {
+	boolean verifyTarget(Steerable character) {
 		if(hasReachedTarget(character)){
 			if(isLastTarget()){
 				return false;
@@ -70,10 +70,10 @@ public class PathFollowingBehavior implements SteeringBehavior{
 		return targetIndex == getPath().size() - 1;
 	}
 
-	private boolean hasReachedTarget(ControlledCharacter character) {
+	private boolean hasReachedTarget(Steerable character) {
 		return hasReachedTarget(character, getCurrentTarget());
 	}
-	private boolean hasReachedTarget(ControlledCharacter character, Vector2 target) {
+	private boolean hasReachedTarget(Steerable character, Vector2 target) {
 		return target.dst(character.getPosition()) <= getReachDistance();
 	}
 }

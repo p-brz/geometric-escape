@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SeekBehaviorTest {
 	private static final Vector2 anyVel = new Vector2(1f,2f);
 	private SeekBehavior seekBehaviour;
-	private ControlledCharacter character;
+	private Steerable character;
 	float velocityMag = 5f, deltaVelocityMag = 1f;
 	
 	@Before
@@ -22,7 +22,7 @@ public class SeekBehaviorTest {
 		seekBehaviour = new SeekBehavior();
 		seekBehaviour.setTarget(new Vector2(10f,10f));
 		
-		character = mock(ControlledCharacter.class);
+		character = mock(Steerable.class);
 		
 		resetCharacter();
 	}

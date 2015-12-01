@@ -1,7 +1,7 @@
 package org.example.game.prototypes;
 
 import org.example.game.player.PlayPlayer;
-import org.example.game.steering.ControlledCharacter;
+import org.example.game.steering.Steerable;
 import org.example.game.steering.SteeringBehavior;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -20,7 +20,7 @@ public class PrototypePlayer extends ApplicationAdapter
 	
 	protected Sprite spriteChar;
 	
-	protected PrototypeCharacter character;
+	protected BasicSteerable character;
 	
 	PlayPlayer player;
 	
@@ -31,7 +31,7 @@ public class PrototypePlayer extends ApplicationAdapter
 		spriteChar = new Sprite(img);
 		spriteChar.setSize(80, 80);
 		player = new PlayPlayer();
-		character = new PrototypeCharacter();
+		character = new BasicSteerable();
 	}
 
 	@Override
