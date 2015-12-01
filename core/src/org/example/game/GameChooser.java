@@ -2,6 +2,7 @@ package org.example.game;
 
 import org.example.game.prototypes.PrototypeBox2D;
 import org.example.game.prototypes.PrototypePathFollowingBehavior;
+import org.example.game.prototypes.PrototypePlayer;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -11,5 +12,6 @@ public class GameChooser {
 //		return new PrototypeSeekBehavior();
 //		return new PrototypePathFollowingBehavior();
 		return new PrototypeBox2D();
+//		return new PrototypePlayer();	
 	}
 }
