@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.example.game.config.GameConfig;
 import org.example.game.map.GameMap;
+import org.example.game.utils.BooleanMatrixPrinter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,6 +36,10 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
         camera.update();
         gameMap.setCamera(camera);
         gameMap.initMap();
+        boolean[][] walkable = gameMap.getWalkablePath();
+        
+        BooleanMatrixPrinter printer = new BooleanMatrixPrinter();
+        printer.printMatrix(walkable);
 //        super.create(); //To change body of generated methods, choose Tools | Templates.
     }
     

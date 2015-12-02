@@ -11,6 +11,7 @@ package org.example.game.config;
  */
 public class GameConfig {
     
+    public static final String MAP_PATH_LAYER = "Path";
     public static final int TILE_IN_PIXELS = 32;
     
 }

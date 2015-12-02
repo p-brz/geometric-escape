@@ -11,11 +11,14 @@ import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.example.game.config.GameConfig;
 
 /**
  *
@@ -27,6 +30,7 @@ public class GameMap {
         this.mapFile = mapFile;
     }
     
+    private int pathLayerIndex = 0;
     private final String mapFile;
     private Map map;
     float unitScale = 1f;
@@ -66,14 +70,38 @@ public class GameMap {
         setupLayers();
     }
     
+    public boolean[][] getWalkablePath(){
+        TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(pathLayerIndex);
+        int tileWidth = tiledLayer.getWidth();
+        int tileHeight = tiledLayer.getHeight();
+        
+        System.out.println(tileWidth);
+        System.out.println(tileHeight);
+        
+        boolean[][] path = new boolean[tileWidth][tileHeight];
+        
+        for(int x = 0; x < tileWidth; x++){
+            for(int y = 0; y < tileHeight; y++){
+                Cell cell = tiledLayer.getCell(x, y);
+                path[x][y] = (cell != null);
+            }
+        }
+        
+        return path;
+    }
+    
     private void setupLayers() {
         List<Integer> bgLayers = new ArrayList<Integer>();
 
         Iterator<MapLayer> layersIterator = map.getLayers().iterator();
         int index = 0;
         while (layersIterator.hasNext()) {
-            layersIterator.next();
-            bgLayers.add(index);
+            MapLayer layer = layersIterator.next();
+            if(layer.getName().equals(GameConfig.MAP_PATH_LAYER)){
+                this.pathLayerIndex = index;
+            }else{
+                bgLayers.add(index);
+            }
             ++index;
         }
 
