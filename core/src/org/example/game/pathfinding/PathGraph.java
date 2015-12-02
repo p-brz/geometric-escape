@@ -10,20 +10,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class PathGraph {
-	final Map<MapNode, Integer> nodesHashKey;
+	final Map<MapNode, Integer> nodeToKey;
 	final List<Set<MapNode>> adjacents;
 	
 	public PathGraph() {
-		nodesHashKey = new HashMap<MapNode, Integer>();
+		nodeToKey = new HashMap<MapNode, Integer>();
 		adjacents = new ArrayList<Set<MapNode>>();
 	}
 	
+	public Collection<MapNode> getNodes(){
+		return nodeToKey.keySet();
+	}
+	
 	public void addNode(MapNode mapNode) {
-		if(nodesHashKey.containsKey(mapNode)){
+		if(nodeToKey.containsKey(mapNode)){
 			return;
 		}
 		adjacents.add(new HashSet<MapNode>());
-		nodesHashKey.put(mapNode, adjacents.size() - 1);
+		nodeToKey.put(mapNode, adjacents.size() - 1);
 	}
 
 	public int count() {
@@ -39,7 +43,7 @@ public class PathGraph {
 	}
 
 	private Integer getVertice(MapNode node) {
-		return nodesHashKey.get(node);
+		return nodeToKey.get(node);
 	}
 
 	public void addAdjacent(MapNode node1, MapNode node2) {
@@ -55,10 +59,10 @@ public class PathGraph {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		for(MapNode node : nodesHashKey.keySet()){
+		for(MapNode node : nodeToKey.keySet()){
 			builder.append(String.format(Locale.US, "(%d,%d) : ", node.getX(), node.getY()));
 			
-			int vert = nodesHashKey.get(node);
+			int vert = nodeToKey.get(node);
 			for(MapNode adjacent : adjacents.get(vert)){
 				builder.append(String.format(Locale.US, "(%d,%d) ", adjacent.getX(), adjacent.getY()));
 			}
