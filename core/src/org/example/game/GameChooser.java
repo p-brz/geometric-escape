@@ -1,6 +1,6 @@
 package org.example.game;
 
-import org.example.game.prototypes.PrototypeFindNode;
+import org.example.game.prototypes.PrototypeDrawBox2DSteerable;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -14,7 +14,8 @@ public class GameChooser {
 //		return new PrototypeCollisionDetection();
 //		return new PrototypeProximityDetector();
 //		return new PrototypeSteeringBehavior();
-//		return new PrototypeDrawBox2DSteerable();
-		return new PrototypeFindNode();
+		return new PrototypeDrawBox2DSteerable();
+//		return new PrototypeFindNode();
+//		return new PrototypeCenterCamera();
 	}
 }

@@ -6,6 +6,7 @@ import org.example.game.physics.bodies.RectangularBody;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -48,6 +49,10 @@ public class PrototypeBox2D extends ApplicationAdapter{
     
     protected GameWorld getGameWorld(){
     	return gameWorld;
+    }
+    
+    protected Camera getCamera(){
+    	return camera;
     }
     
     @Override
