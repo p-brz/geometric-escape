@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 
-public class PrototypePathFollowingBehavior extends PrototypeSteeringBehavior{
+public class PrototypePathFollowingBehavior extends PrototypeGamePlayer{
 	private List<Vector2> path;
 	private ShapeRenderer shapeRenderer;
 	

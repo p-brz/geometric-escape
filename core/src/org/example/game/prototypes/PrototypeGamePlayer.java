@@ -1,0 +1,73 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.example.game.prototypes;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.example.game.drawable.DimensionedTexture;
+import org.example.game.player.GamePlayer;
+import org.example.game.steering.SteeringBehavior;
+
+/**
+ *
+ * @author alisonbnt
+ */
+public class PrototypeGamePlayer extends ApplicationAdapter{
+    
+        protected SpriteBatch batch;
+        protected GamePlayer player;
+	protected SteeringBehavior behavior;
+	
+	@Override
+	public void create () {
+		batch = new SpriteBatch();
+		Texture img = new Texture("badlogic.jpg");
+                DimensionedTexture texture = new DimensionedTexture(img, 80, 80);
+		behavior = createBehavior();
+                player = new GamePlayer(texture);
+                player.setBehavior(behavior);
+	}
+
+	protected SteeringBehavior createBehavior(){
+		return null;
+	}
+
+	@Override
+	public void render () {
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0.7f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		update();
+		
+		draw();
+	}
+
+	protected void update() {
+//		updateBehavior();
+//		
+//		if(behavior != null){
+//			behavior.apply(player.getCharacter());
+//		}
+		player.update();
+	}
+
+	protected void draw() {
+		batch.begin();
+		drawAt(batch);
+		batch.end();
+	}
+
+	protected void drawAt(SpriteBatch batch) {
+		player.draw(batch);
+	}
+
+	protected void updateBehavior() 
+	{}
+    
+}

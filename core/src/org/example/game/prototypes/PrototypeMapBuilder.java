@@ -32,7 +32,7 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameMap.draw();
     }
-    
+
     @Override
     public void create() {
         OrthographicCamera camera = new OrthographicCamera(800, 600);
@@ -44,22 +44,21 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
         boolean[][] walkable = gameMap.getMap().getWalkablePath();
         PathGraph graph = gameMap.getGraph();
         NodeFinder nodeFinder = new NodeFinder(graph, gameMap.getTileSize());
-        
+
         GetNodeOnClick getNodeOnClick = new GetNodeOnClick(camera, nodeFinder);
-		Gdx.input.setInputProcessor(getNodeOnClick);
-		
-		getNodeOnClick.addGetNodeListener(new GetNodeOnClick.GetNodeListener() {
-			@Override
-			public void onGetNode(MapNode node) {
-				System.out.println("Clicked on node: " + node);
-			}
-		});
-                
+        Gdx.input.setInputProcessor(getNodeOnClick);
+
+        getNodeOnClick.addGetNodeListener(new GetNodeOnClick.GetNodeListener() {
+            @Override
+            public void onGetNode(MapNode node) {
+                System.out.println("Clicked on node: " + node);
+            }
+        });
+
         getNodeOnClick.setDimensionConverter(gameMap.getDimensionConverter());
-        
+
         BooleanMatrixPrinter printer = new BooleanMatrixPrinter();
         printer.printMatrix(walkable);
-//        super.create(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
