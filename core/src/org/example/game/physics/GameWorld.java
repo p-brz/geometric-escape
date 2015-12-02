@@ -4,8 +4,12 @@ import org.example.game.physics.bodies.BodyCreator;
 import org.example.game.physics.bodies.PhysicalBody;
 import org.example.game.physics.collision.CollisionListener;
 import org.example.game.physics.collision.CollisionManager;
+import org.example.game.physics.proximitydetector.ProximityDetector;
+import org.example.game.physics.proximitydetector.ProximityFilter;
+import org.example.game.physics.proximitydetector.ProximityListener;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -19,6 +23,7 @@ public class GameWorld {
 
     private BodyCreator bodyCreator;
     private final CollisionManager collisionManager;
+    private final ProximityDetector proximityDetector;
     
     private Box2DDebugRenderer renderer;
     
@@ -28,6 +33,7 @@ public class GameWorld {
     	renderer = new Box2DDebugRenderer();
     	bodyCreator = new BodyCreator(world);
     	collisionManager = new CollisionManager();
+    	proximityDetector = new ProximityDetector(world);
     	
     	world.setContactListener(collisionManager);
     }
@@ -73,5 +79,9 @@ public class GameWorld {
     
 	public World getWorld() {
 		return world;
+	}
+
+	public void findFixtures(Rectangle searchRegion, ProximityFilter proxFilter, ProximityListener proximityListener) {
+		proximityDetector.findBodies(searchRegion, proxFilter, proximityListener);
 	}
 }

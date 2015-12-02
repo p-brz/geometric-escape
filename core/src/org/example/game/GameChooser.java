@@ -1,6 +1,6 @@
 package org.example.game;
 
-import org.example.game.prototypes.PrototypeCollisionDetection;
+import org.example.game.prototypes.PrototypeProximityDetector;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -11,6 +11,7 @@ public class GameChooser {
 //		return new PrototypePathFollowingBehavior();
 //		return new PrototypePlayer();	
 //		return new PrototypeBox2DSteerable();
-		return new PrototypeCollisionDetection();
+//		return new PrototypeCollisionDetection();
+		return new PrototypeProximityDetector();
 	}
 }

@@ -5,6 +5,7 @@ import org.example.game.physics.bodies.RectangularBody;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -75,6 +76,8 @@ public class PrototypeBox2D extends ApplicationAdapter{
 	}
 
     public void draw() {
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0.7f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     	gameWorld.drawDebug(camera);
     }
 }
