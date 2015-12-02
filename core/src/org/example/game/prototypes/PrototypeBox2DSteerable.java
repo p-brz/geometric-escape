@@ -14,6 +14,7 @@ public class PrototypeBox2DSteerable extends PrototypeBox2D{
     	super.create();
     	
         b2dSteerable = new Box2DSteerable(super.dynamicBody);
+        b2dSteerable.setVelocityMag(9);
         controller = new PlayPlayer();
     }
 

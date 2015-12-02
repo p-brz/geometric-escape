@@ -1,5 +1,6 @@
 package org.example.game.prototypes;
 
+import org.example.game.drawable.BasicDimensionConverter;
 import org.example.game.physics.GameWorld;
 import org.example.game.physics.bodies.RectangularBody;
 
@@ -9,6 +10,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PrototypeBox2D extends ApplicationAdapter{
 	public class Constants {
@@ -20,8 +23,10 @@ public class PrototypeBox2D extends ApplicationAdapter{
 		public static final float RUNNER_X = 2;
 	    public static final float RUNNER_Y = GROUND_Y + GROUND_HEIGHT;
 	    public static final float RUNNER_WIDTH = 1f;
-	    public static final float RUNNER_HEIGHT = 2f;
+	    public static final float RUNNER_HEIGHT = 1f;
 	    public static final float RUNNER_DENSITY = 0.5f;
+	    
+	    public static final float PIXELS_PER_WORLD_UNIT = 32;
 
 	}
 
@@ -30,15 +35,16 @@ public class PrototypeBox2D extends ApplicationAdapter{
 	  	Ele permite, neste caso, mapear as dimensões do mundo (Box2d) para a tela.
 	  	Valores maiores farão com que a câmera exiba uma área maior do mundo e, com isto,
 	  	os objetos do mundo parecerão menores (como se reduzisse o zoom).*/
-    protected static final int VIEWPORT_WIDTH = 20;
-    protected static final int VIEWPORT_HEIGHT = 13;
-
+    protected float viewportWidth, viewportHeight;
+    protected Viewport camViewport;
     private OrthographicCamera camera;
 
     private GameWorld gameWorld;
     
     protected Body dynamicBody;
     protected Body staticBody;
+    
+    protected BasicDimensionConverter dimensionConverter;
     
     protected GameWorld getGameWorld(){
     	return gameWorld;
@@ -47,6 +53,8 @@ public class PrototypeBox2D extends ApplicationAdapter{
     @Override
     public void create() {
     	super.create();
+    	
+    	dimensionConverter = new BasicDimensionConverter(Constants.PIXELS_PER_WORLD_UNIT);
     	
     	gameWorld = new GameWorld();
         staticBody = gameWorld.createStatic(new Vector2(Constants.GROUND_X, Constants.GROUND_Y)
@@ -58,9 +66,19 @@ public class PrototypeBox2D extends ApplicationAdapter{
     }
     
 	private void setupCamera() {
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		viewportWidth = dimensionConverter.convertToWorld(Gdx.graphics.getWidth());
+		viewportHeight = dimensionConverter.convertToWorld(Gdx.graphics.getHeight());
+		
+		
+		System.out.println("Viewport width: " + viewportWidth + " viewport height: " + viewportHeight);
+		
+        camera = new OrthographicCamera(viewportWidth, viewportHeight);
+        
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
         camera.update();
+
+		camViewport = new FitViewport(viewportWidth, viewportHeight);
+        camViewport.setCamera(camera);
     }
 
     @Override
@@ -71,6 +89,12 @@ public class PrototypeBox2D extends ApplicationAdapter{
         draw();
     }
 
+    @Override
+    public void resize(int width, int height) {
+    	super.resize(width, height);
+    	camViewport.update(width, height);
+    }
+    
 	public void update(float delta) {
 		gameWorld.update(delta);
 	}

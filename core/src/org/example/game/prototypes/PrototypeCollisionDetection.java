@@ -14,8 +14,8 @@ public class PrototypeCollisionDetection extends PrototypeBox2DSteerable{
 	public void create() {
 		super.create();
 
-		Vector2 obstaclePos = new Vector2(VIEWPORT_WIDTH/2f, VIEWPORT_HEIGHT/2f);
-		Vector2 victoryPos = new Vector2(VIEWPORT_WIDTH* 0.8f, VIEWPORT_HEIGHT* 0.8f);
+		Vector2 obstaclePos = new Vector2(viewportWidth/2f, viewportHeight/2f);
+		Vector2 victoryPos = new Vector2(viewportWidth* 0.8f, viewportHeight* 0.8f);
 		
 		RectangularBody rectBody = new RectangularBody(new Vector2(1,1));
 

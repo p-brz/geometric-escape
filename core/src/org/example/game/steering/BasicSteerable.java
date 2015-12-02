@@ -28,6 +28,9 @@ public class BasicSteerable implements Steerable{
 	public float getVelocityMag() {
 		return velocityMagnitude;
 	}
+	public void setVelocityMag(float vel){
+		this.velocityMagnitude = vel;
+	}
 
 	@Override
 	public float getDeltaVelocity() {

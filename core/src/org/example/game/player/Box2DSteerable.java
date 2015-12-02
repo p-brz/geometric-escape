@@ -1,9 +1,7 @@
 package org.example.game.player;
 
 import org.example.game.steering.BasicSteerable;
-import org.example.game.steering.Steerable;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Box2DSteerable extends BasicSteerable
