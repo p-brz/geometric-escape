@@ -8,7 +8,7 @@ public class PathGraphPopulator
 	 * @param worldMap matriz de floats que representam o mundo
 	 * @param tileSize = tamanho de cada tile
 	 */
-	public static void populateFromMatrix(PathGraph graph, boolean[][] worldMap, int tileSize)
+	public static void populateFromMatrix(PathGraph graph, boolean[][] worldMap, float tileSize)
 	{
 		int linSize = worldMap.length;
 		int colSize = worldMap[0].length;
@@ -35,7 +35,7 @@ public class PathGraphPopulator
 	 * @param colSize = numero de colunas maximas permitidas
 	 * @param worldMap = mapa com booleanos indicando os tiles andaveis
 	 */
-	private static void addNode(int lin, int col, int tileSize, PathGraph graph, int linSize, int colSize, boolean[][] worldMap)
+	private static void addNode(int lin, int col, float tileSize, PathGraph graph, int linSize, int colSize, boolean[][] worldMap)
 	{
 		float x = lin*tileSize + tileSize/2;
 		float y = col*tileSize + tileSize/2;
@@ -56,7 +56,7 @@ public class PathGraphPopulator
 	 * @param colSize = numero de colunas maximas permitidas
 	 * @param worldMap = mapa com booleanos indicando os tiles andaveis
 	 */
-	private static void addAdjs(MapNode mn, int lin, int col, int tileSize, PathGraph graph, int linSize, int colSize, boolean[][] worldMap)
+	private static void addAdjs(MapNode mn, int lin, int col, float tileSize, PathGraph graph, int linSize, int colSize, boolean[][] worldMap)
 	{
 		int i = 0, j= 0;
 		int cases = 4;
@@ -106,6 +106,7 @@ public class PathGraphPopulator
 				float x = i*tileSize + tileSize/2;
 				float y = j*tileSize + tileSize/2;
 				MapNode na = new MapNode(x, y);
+                                graph.addNode(na);
 				graph.addAdjacent(mn, na);
 			}
 		}

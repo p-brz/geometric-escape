@@ -9,16 +9,21 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapRenderer;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.example.game.config.GameConfig;
+import org.example.game.physics.GameWorld;
+import org.example.game.physics.bodies.RectangularBody;
 
 /**
  *
@@ -27,10 +32,19 @@ import org.example.game.config.GameConfig;
 public class GameMap {
     
     public GameMap(String mapFile){
-        this.mapFile = mapFile;
+        this(mapFile, GameConfig.MAP_PATH_LAYER, GameConfig.MAP_COLLISION_LAYER);
     }
     
-    private int pathLayerIndex = 0;
+    public GameMap(String mapFile, String pathLayerName, String collideLayerName){
+        this.mapFile = mapFile;
+        this.pathLayerName = pathLayerName;
+        this.collisionLayerName = collideLayerName;
+    }
+    
+    private GameWorld world;
+    private String pathLayerName;
+    private String collisionLayerName;
+    
     private final String mapFile;
     private Map map;
     float unitScale = 1f;
@@ -42,6 +56,10 @@ public class GameMap {
     public void initMap(){
         loadMap(new TmxMapLoader(new InternalFileHandleResolver()), mapFile);
         setup();
+    }
+    
+    public void setWorld(GameWorld world){
+        this.world = world;
     }
     
     public void setCamera(OrthographicCamera mapCamera) {
@@ -71,12 +89,9 @@ public class GameMap {
     }
     
     public boolean[][] getWalkablePath(){
-        TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(pathLayerIndex);
+        TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(pathLayerName);
         int tileWidth = tiledLayer.getWidth();
         int tileHeight = tiledLayer.getHeight();
-        
-        System.out.println(tileWidth);
-        System.out.println(tileHeight);
         
         boolean[][] path = new boolean[tileWidth][tileHeight];
         
@@ -97,9 +112,7 @@ public class GameMap {
         int index = 0;
         while (layersIterator.hasNext()) {
             MapLayer layer = layersIterator.next();
-            if(layer.getName().equals(GameConfig.MAP_PATH_LAYER)){
-                this.pathLayerIndex = index;
-            }else{
+            if(!(layer.getName().equals(pathLayerName) || layer.getName().equals(collisionLayerName))){
                 bgLayers.add(index);
             }
             ++index;
@@ -116,6 +129,17 @@ public class GameMap {
             mapRenderer.setView(mapCamera);
         }
         mapRenderer.render(backgroundLayers);
+    }
+    
+    private void setupMapColliders() {
+        Iterator<MapObject> mapObjectsIterator = map.getLayers().get(collisionLayerName).getObjects().iterator();
+
+        while (mapObjectsIterator.hasNext()) {
+            MapObject object = mapObjectsIterator.next();
+            RectangleMapObject rectObj = (RectangleMapObject) object;
+            Vector2 pos = new Vector2(rectObj.getRectangle().x, rectObj.getRectangle().y);
+            world.createStatic(pos, new RectangularBody(rectObj.getRectangle().width, rectObj.getRectangle().height));
+        }
     }
     
 }

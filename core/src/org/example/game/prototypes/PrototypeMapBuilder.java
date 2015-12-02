@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.example.game.config.GameConfig;
-import org.example.game.map.GameMap;
+import org.example.game.map.GamePathMap;
+import org.example.game.pathfinding.PathGraph;
 import org.example.game.utils.BooleanMatrixPrinter;
 
 /*
@@ -19,7 +20,8 @@ import org.example.game.utils.BooleanMatrixPrinter;
  */
 public class PrototypeMapBuilder extends ApplicationAdapter {
 
-    GameMap gameMap = new GameMap("maps/demonstration.tmx");
+//    GameMap gameMap = new GameMap("maps/demonstration.tmx");
+    GamePathMap gameMap = new GamePathMap("maps/demonstration.tmx");
 
     @Override
     public void render() {
@@ -35,8 +37,9 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
         camera.position.y = (100 - 7) * GameConfig.TILE_IN_PIXELS;
         camera.update();
         gameMap.setCamera(camera);
-        gameMap.initMap();
-        boolean[][] walkable = gameMap.getWalkablePath();
+        gameMap.initGameMap();
+        boolean[][] walkable = gameMap.getMap().getWalkablePath();
+        PathGraph graph = gameMap.getGraph();
         
         BooleanMatrixPrinter printer = new BooleanMatrixPrinter();
         printer.printMatrix(walkable);
