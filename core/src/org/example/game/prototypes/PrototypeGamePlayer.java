@@ -11,63 +11,57 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.example.game.drawable.DimensionedTexture;
-import org.example.game.player.GamePlayer;
 import org.example.game.steering.SteeringBehavior;
 
 /**
  *
  * @author alisonbnt
  */
-public class PrototypeGamePlayer extends ApplicationAdapter{
-    
-        protected SpriteBatch batch;
-        protected GamePlayer player;
-	protected SteeringBehavior behavior;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		Texture img = new Texture("badlogic.jpg");
-                DimensionedTexture texture = new DimensionedTexture(img, 80, 80);
-		behavior = createBehavior();
-                player = new GamePlayer(texture);
-                player.setBehavior(behavior);
-	}
+public class PrototypeGamePlayer extends ApplicationAdapter {
 
-	protected SteeringBehavior createBehavior(){
-		return null;
-	}
+    protected SpriteBatch batch;
+    protected TheChosenOnePlayer player;
+    protected SteeringBehavior behavior;
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0.7f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		update();
-		
-		draw();
-	}
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        Texture img = new Texture("badlogic.jpg");
+        DimensionedTexture texture = new DimensionedTexture(img, 32, 32);
+        behavior = createBehavior();
+        player = new TheChosenOnePlayer(texture);
+        player.setBehavior(behavior);
+    }
 
-	protected void update() {
-//		updateBehavior();
-//		
-//		if(behavior != null){
-//			behavior.apply(player.getCharacter());
-//		}
-		player.update();
-	}
+    protected SteeringBehavior createBehavior() {
+        return null;
+    }
 
-	protected void draw() {
-		batch.begin();
-		drawAt(batch);
-		batch.end();
-	}
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0.7f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-	protected void drawAt(SpriteBatch batch) {
-		player.draw(batch);
-	}
+        update();
+        draw();
+    }
 
-	protected void updateBehavior() 
-	{}
-    
+    protected void update() {
+        player.update(Gdx.graphics.getDeltaTime());
+    }
+
+    protected void draw() {
+        batch.begin();
+        drawAt(batch);
+        batch.end();
+    }
+
+    protected void drawAt(SpriteBatch batch) {
+        player.draw(batch);
+        System.out.println("Player at " + player.getCharacter().getPosition());
+    }
+
+    protected void updateBehavior() {
+    }
+
 }

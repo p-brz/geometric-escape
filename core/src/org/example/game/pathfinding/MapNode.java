@@ -1,5 +1,7 @@
 package org.example.game.pathfinding;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class MapNode {
 	float x, y;
 	final float epsilon;
@@ -9,6 +11,10 @@ public class MapNode {
 		this.y = y;
 		epsilon = 0.005f;
 	}
+
+    public MapNode(Vector2 pos) {
+        this(pos.x, pos.y);
+    }
 
 	public float getX() {
 		return x;

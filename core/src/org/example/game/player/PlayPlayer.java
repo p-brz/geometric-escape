@@ -28,7 +28,7 @@ public class PlayPlayer
 		else character.getVelocity().x = 0;
 		
 		character.getVelocity().nor().scl(character.getVelocityMag());
-		character.update();
+		character.update(Gdx.graphics.getDeltaTime());
 	}
 
 }

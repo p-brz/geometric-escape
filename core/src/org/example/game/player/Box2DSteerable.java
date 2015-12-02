@@ -14,9 +14,9 @@ public class Box2DSteerable extends BasicSteerable
 	}
 	
 	@Override
-	public void update() 
+	public void update(float deltaT) 
 	{
-		super.update();
+		super.update(deltaT);
 		body.setLinearVelocity(getVelocity());
 		super.getPosition().set(body.getPosition());
 		

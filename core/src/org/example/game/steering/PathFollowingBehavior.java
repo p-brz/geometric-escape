@@ -5,75 +5,84 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class PathFollowingBehavior implements SteeringBehavior{
-	private int targetIndex;
-	private final List<Vector2> path;
-	private float reachDistance;
-	
-	private SeekBehavior seekBehaviour;
+public class PathFollowingBehavior implements SteeringBehavior {
 
-	public PathFollowingBehavior() {
-		this(new SeekBehavior());
-	}
-	public PathFollowingBehavior(SeekBehavior seek) {
-		path = new ArrayList<Vector2>();
-		this.seekBehaviour = seek;
-	}
-	
-	public int getTargetIndex() {
-		return targetIndex;
-	}
+    private int targetIndex;
+    private final List<Vector2> path;
+    private float reachDistance;
 
-	public void setTargetIndex(int targetIndex) {
-		this.targetIndex = targetIndex;
-	}
-	public Vector2 getCurrentTarget(){
-		return getPath().get(targetIndex);
-	}
-	
-	public List<Vector2> getPath() {
-		return path;
-	}
+    private SeekBehavior seekBehaviour;
 
-	public void setPath(List<Vector2> path) {
-		this.path.clear();
-		this.path.addAll(path);
-	}
-	
-	public float getReachDistance() {
-		return reachDistance;
-	}
+    public PathFollowingBehavior() {
+        this(new SeekBehavior());
+    }
 
-	public void setReachDistance(float reachDistance) {
-		this.reachDistance = reachDistance;
-	}
+    public PathFollowingBehavior(SeekBehavior seek) {
+        path = new ArrayList<Vector2>();
+        this.seekBehaviour = seek;
+    }
 
-	@Override
-	public void apply(Steerable character) {
-		if(verifyTarget(character)){
-			seekBehaviour.setTarget(getCurrentTarget());
-			seekBehaviour.apply(character);
-		}
-	}
+    public PathFollowingBehavior(List<Vector2> pathVector) {
+        this();
+        setPath(pathVector);
+    }
 
-	boolean verifyTarget(Steerable character) {
-		if(hasReachedTarget(character)){
-			if(isLastTarget()){
-				return false;
-			}
-			targetIndex += 1;
-		}
-		return true;
-	}
+    public int getTargetIndex() {
+        return targetIndex;
+    }
 
-	private boolean isLastTarget() {
-		return targetIndex == getPath().size() - 1;
-	}
+    public void setTargetIndex(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
 
-	private boolean hasReachedTarget(Steerable character) {
-		return hasReachedTarget(character, getCurrentTarget());
-	}
-	private boolean hasReachedTarget(Steerable character, Vector2 target) {
-		return target.dst(character.getPosition()) <= getReachDistance();
-	}
+    public Vector2 getCurrentTarget() {
+        return getPath().get(targetIndex);
+    }
+
+    public List<Vector2> getPath() {
+        return path;
+    }
+
+    public void setPath(List<Vector2> path) {
+        this.path.clear();
+        this.path.addAll(path);
+    }
+
+    public float getReachDistance() {
+        return reachDistance;
+    }
+
+    public void setReachDistance(float reachDistance) {
+        this.reachDistance = reachDistance;
+    }
+
+    @Override
+    public void apply(Steerable character) {
+        if (verifyTarget(character)) {
+            seekBehaviour.setTarget(getCurrentTarget());
+            seekBehaviour.apply(character);
+        }
+    }
+
+    boolean verifyTarget(Steerable character) {
+        if (hasReachedTarget(character)) {
+            if (isLastTarget()) {
+                return false;
+            }
+            targetIndex += 1;
+        }
+        return true;
+    }
+
+    public boolean isLastTarget() {
+        return targetIndex == getPath().size() - 1;
+    }
+
+    private boolean hasReachedTarget(Steerable character) {
+        return hasReachedTarget(character, getCurrentTarget());
+    }
+
+    private boolean hasReachedTarget(Steerable character, Vector2 target) {
+        return target.dst(character.getPosition()) <= getReachDistance();
+    }
 }

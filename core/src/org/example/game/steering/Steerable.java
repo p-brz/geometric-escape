@@ -20,5 +20,5 @@ public interface Steerable
 
 	public void applyForce(Vector2 force);
 	
-	public void update();
+	public void update(float deltaT);
 }

@@ -3,14 +3,15 @@ package org.example.game.steering;
 import com.badlogic.gdx.math.Vector2;
 
 public class BasicSteerable implements Steerable{
-	Vector2 position, velocity;
+	Vector2 position, velocity, posIncrement;
 	float velocityMagnitude;
 	float deltaVelocity;
 	
 	public BasicSteerable() {
+                posIncrement = new Vector2();
 		position = new Vector2(0,0);
 		velocity = new Vector2(0,0);
-		velocityMagnitude = 5f;
+		velocityMagnitude = 0.0000000001f;
 		deltaVelocity = 1f;
 	}
 	
@@ -43,8 +44,10 @@ public class BasicSteerable implements Steerable{
 	}
 	
 	@Override
-	public void update()
+	public void update(float deltaT)
 	{
-		position.add(velocity);
+            posIncrement.set(velocity);
+            posIncrement.scl(deltaT);
+            position.add(velocity);
 	}
 }

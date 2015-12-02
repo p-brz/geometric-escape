@@ -49,7 +49,7 @@ public class PrototypePlayer extends ApplicationAdapter
 
 	protected void update() {
 		player.controllPlayer(character);
-		character.update();
+		character.update(Gdx.graphics.getDeltaTime());
 		spriteChar.setCenter(character.getPosition().x, character.getPosition().y);
 	}
 

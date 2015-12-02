@@ -1,10 +1,8 @@
 package org.example.game.prototypes;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import org.example.game.config.GameConfig;
+import org.example.game.drawable.DimensionConverter;
 import org.example.game.map.GamePathMap;
 import org.example.game.pathfinding.MapNode;
 import org.example.game.pathfinding.NodeFinder;
@@ -21,30 +19,37 @@ import org.example.game.utils.GetNodeOnClick;
  *
  * @author alisonbnt
  */
-public class PrototypeMapBuilder extends ApplicationAdapter {
+public class PrototypeMapBuilder extends PrototypeGamePlayer {
 
-//    GameMap gameMap = new GameMap("maps/demonstration.tmx");
     GamePathMap gameMap = new GamePathMap("maps/demonstration.tmx");
 
     @Override
-    public void render() {
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 0.7f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    protected void draw() {
         gameMap.draw();
+        batch.setProjectionMatrix(gameMap.getCamera().combined);
+        super.draw(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void create() {
+        super.create();
         OrthographicCamera camera = new OrthographicCamera(800, 600);
-        camera.position.x = 0;
-        camera.position.y = (100 - 7) * GameConfig.TILE_IN_PIXELS;
-        camera.update();
-        gameMap.setCamera(camera);
         gameMap.initGameMap();
         boolean[][] walkable = gameMap.getMap().getWalkablePath();
         PathGraph graph = gameMap.getGraph();
         NodeFinder nodeFinder = new NodeFinder(graph, gameMap.getTileSize());
-
+        
+        player.setFinder(nodeFinder);
+        player.setPosition(8.5f, 87.5f);
+        DimensionConverter converter = gameMap.getDimensionConverter();
+        player.setDimensionConverter(converter);
+        
+        camera.position.x = converter.convertToScreen(8.5f);
+        camera.position.y = converter.convertToScreen(87.5f);
+        camera.update();
+        gameMap.setCamera(camera);
+        
+        
         GetNodeOnClick getNodeOnClick = new GetNodeOnClick(camera, nodeFinder);
         Gdx.input.setInputProcessor(getNodeOnClick);
 
@@ -55,6 +60,7 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
             }
         });
 
+        getNodeOnClick.addGetNodeListener(player);
         getNodeOnClick.setDimensionConverter(gameMap.getDimensionConverter());
 
         BooleanMatrixPrinter printer = new BooleanMatrixPrinter();

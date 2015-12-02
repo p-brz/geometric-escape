@@ -55,14 +55,30 @@ public class SteerableDrawer{
 	}
 	
 	public void draw(Batch batch){
-		if(steerable != null){
-			Vector2 pos = steerable.getPosition();
+		if(getSteerable() != null){
+			Vector2 pos = getSteerable().getPosition();
 			sprite.setCenter(toScreen(pos.x), toScreen(pos.y));
 		}
 		this.sprite.draw(batch);
 	}
 
 	private float toScreen(float worldValue) {
-		return dimensionConverter.convertToScreen(worldValue);
+		return getDimensionConverter().convertToScreen(worldValue);
 	}
+
+    /**
+     * @return the dimensionConverter
+     */
+    public DimensionConverter getDimensionConverter() {
+        return dimensionConverter;
+    }
+
+    /**
+     * @param dimensionConverter the dimensionConverter to set
+     */
+    public void setDimensionConverter(DimensionConverter dimensionConverter) {
+        this.dimensionConverter = dimensionConverter;
+    }
+        
+        
 }

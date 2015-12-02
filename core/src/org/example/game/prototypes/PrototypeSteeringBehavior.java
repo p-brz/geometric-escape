@@ -53,7 +53,7 @@ public class PrototypeSteeringBehavior extends ApplicationAdapter {
 		if(behavior != null){
 			behavior.apply(character);
 		}
-		character.update();
+		character.update(Gdx.graphics.getDeltaTime());
 	}
 
 	protected void draw() {

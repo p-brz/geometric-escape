@@ -5,8 +5,10 @@
  */
 package org.example.game.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.example.game.drawable.DimensionConverter;
 import org.example.game.drawable.DimensionedTexture;
 import org.example.game.drawable.SteerableDrawer;
 import org.example.game.steering.BasicSteerable;
@@ -27,17 +29,19 @@ public class GamePlayer {
         character = new BasicSteerable();
         characterDrawable = new SteerableDrawer(new TextureRegion(playerImg.getTexture()), getCharacter());
         characterDrawable.getSprite().setSize(playerImg.getWidth(), playerImg.getHeight());
+        
+        characterDrawable.setSteerable(character);
     }
 
     public void draw(Batch batch) {
         getCharacterDrawable().draw(batch);
     }
 
-    public void update() {
+    public void update(float deltaT) {
         if(behavior != null){
             behavior.apply(character);
         }
-        getCharacter().update();
+        getCharacter().update(deltaT);
     }
 
     /**
@@ -82,6 +86,8 @@ public class GamePlayer {
         this.characterDrawable = characterDrawable;
     }
     
-    
+    public void setDimensionConverter(DimensionConverter converter){
+        this.characterDrawable.setDimensionConverter(converter);
+    }
 
 }
