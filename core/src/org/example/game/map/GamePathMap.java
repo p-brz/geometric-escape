@@ -8,6 +8,7 @@ package org.example.game.map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.example.game.config.GameConfig;
 import org.example.game.drawable.BasicDimensionConverter;
+import org.example.game.drawable.DimensionConverter;
 import org.example.game.pathfinding.PathGraph;
 import org.example.game.pathfinding.PathGraphPopulator;
 import org.example.game.physics.GameWorld;
@@ -21,6 +22,7 @@ public class GamePathMap {
     private GameMap map;
     private PathGraph graph;
     private BasicDimensionConverter converter;
+    private float tileSize;
     
     public GamePathMap(String mapFile){
         this(mapFile, GameConfig.MAP_PATH_LAYER, GameConfig.MAP_COLLISION_LAYER);
@@ -30,6 +32,7 @@ public class GamePathMap {
         this.map = new GameMap(mapFile, pathLayerName, collideLayerName);
         this.graph = new PathGraph();
         this.converter = new BasicDimensionConverter(GameConfig.TILE_IN_PIXELS);
+        this.tileSize = converter.convertToWorld(GameConfig.TILE_IN_PIXELS);
     }
     
     public void setWorld(GameWorld world){
@@ -58,7 +61,6 @@ public class GamePathMap {
     
     public void initGameMap(){
         map.initMap();
-        float tileSize = converter.convertToWorld(GameConfig.TILE_IN_PIXELS);
         PathGraphPopulator.populateFromMatrix(this.graph, map.getWalkablePath(), tileSize);
     }
     
@@ -68,6 +70,14 @@ public class GamePathMap {
     
     public GameMap getMap(){
         return this.map;
+    }
+    
+    public float getTileSize(){
+        return this.tileSize;
+    }
+    
+    public DimensionConverter getDimensionConverter(){
+        return this.converter;
     }
     
 }

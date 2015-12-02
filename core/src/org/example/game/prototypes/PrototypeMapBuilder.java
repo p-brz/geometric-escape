@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.example.game.config.GameConfig;
 import org.example.game.map.GamePathMap;
+import org.example.game.pathfinding.MapNode;
+import org.example.game.pathfinding.NodeFinder;
 import org.example.game.pathfinding.PathGraph;
 import org.example.game.utils.BooleanMatrixPrinter;
+import org.example.game.utils.GetNodeOnClick;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,6 +43,19 @@ public class PrototypeMapBuilder extends ApplicationAdapter {
         gameMap.initGameMap();
         boolean[][] walkable = gameMap.getMap().getWalkablePath();
         PathGraph graph = gameMap.getGraph();
+        NodeFinder nodeFinder = new NodeFinder(graph, gameMap.getTileSize());
+        
+        GetNodeOnClick getNodeOnClick = new GetNodeOnClick(camera, nodeFinder);
+		Gdx.input.setInputProcessor(getNodeOnClick);
+		
+		getNodeOnClick.addGetNodeListener(new GetNodeOnClick.GetNodeListener() {
+			@Override
+			public void onGetNode(MapNode node) {
+				System.out.println("Clicked on node: " + node);
+			}
+		});
+                
+        getNodeOnClick.setDimensionConverter(gameMap.getDimensionConverter());
         
         BooleanMatrixPrinter printer = new BooleanMatrixPrinter();
         printer.printMatrix(walkable);
