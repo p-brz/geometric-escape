@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.example.game.config;
+package org.example.game.utils;
+
+import org.example.game.pathfinding.PathGraph;
 
 /**
  *
  * @author alisonbnt
  */
-public class GameConfig {
+public class GraphNodePrinter {
     
-    public static final String MAP_PATH_LAYER = "Path";
-    public static final String MAP_COLLISION_LAYER = "Collide";
-    public static final int TILE_IN_PIXELS = 32;
+    public static void printGraph(PathGraph graph){
+        
+    }
     
 }

@@ -15,11 +15,13 @@ public class BooleanMatrixPrinter {
         int width = matrix.length;
         int height = matrix[0].length;
         
+        int active = 0;
         for(int x = 0; x < width; x++){
             String line = "";
             for(int y = height - 1; y > -1; y--){
                 if(matrix[x][y]){
                     line += "# ";
+                    active++;
                 }else{
                     line += ". ";
                 }
