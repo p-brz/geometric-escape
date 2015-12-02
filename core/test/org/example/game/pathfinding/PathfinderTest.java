@@ -190,13 +190,13 @@ public class PathfinderTest {
 		MapNode node = new MapNode(x, y);
 		graph.addNode(node);
 		
-		if(!map[node.getY()][node.getX()]){
+		if(!map[(int)node.getY()][(int)node.getX()]){
 			return;
 		}
 		
 		for(MapNode neighbour : getNeighbours(x, y)){
-			int nx = neighbour.getX();
-			int ny = neighbour.getY();
+			int nx = (int)neighbour.getX();
+			int ny = (int)neighbour.getY();
 			if(! between(nx, 0, cols) || !between(ny, 0, rows)){
 				continue;
 			}
