@@ -81,7 +81,7 @@ public class PathFollowingBehavior implements SteeringBehavior {
         return targetIndex == getPath().size() - 1;
     }
 
-    private boolean hasReachedTarget(Steerable character) {
+    public boolean hasReachedTarget(Steerable character) {
         return hasReachedTarget(character, getCurrentTarget());
     }
 

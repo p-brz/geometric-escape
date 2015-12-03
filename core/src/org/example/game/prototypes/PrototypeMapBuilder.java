@@ -1,15 +1,15 @@
 package org.example.game.prototypes;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.example.game.drawable.DimensionConverter;
 import org.example.game.map.GamePathMap;
-import org.example.game.pathfinding.MapNode;
 import org.example.game.pathfinding.NodeFinder;
 import org.example.game.pathfinding.PathGraph;
 import org.example.game.player.TrackerCamera;
 import org.example.game.utils.BooleanMatrixPrinter;
 import org.example.game.utils.GetNodeOnClick;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,7 +45,8 @@ public class PrototypeMapBuilder extends PrototypeGamePlayer {
         
         player.setFinder(nodeFinder);
         player.setPosition(8.5f, 87.5f);
-        player.getCharacter().setVelocityMag(5f);
+        player.getCharacter().setVelocityMag(6f);
+//        player.getCharacter().setDeltaVelocity();
         
         DimensionConverter converter = gameMap.getDimensionConverter();
         player.setDimensionConverter(converter);

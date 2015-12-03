@@ -40,7 +40,6 @@ public class Pathfinder {
 
 	private void checkAdjacents(PathGraph graph, MapNode target, EstimatedNode estimatedNode) {
 		MapNode node = estimatedNode.getNode();
-		System.out.println("Get adjacents of: " + node);
 		for(MapNode adjacent : graph.adjacents(node)){
 			if(!wasVisited(adjacent)){
 				estimateAndQueue(adjacent, estimatedNode, target);

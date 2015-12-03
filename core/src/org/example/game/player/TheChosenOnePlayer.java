@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.example.game.prototypes;
+package org.example.game.player;
 
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import org.example.game.drawable.DimensionedTexture;
 import org.example.game.pathfinding.MapNode;
 import org.example.game.pathfinding.NodeFinder;
 import org.example.game.pathfinding.Pathfinder;
-import org.example.game.player.GamePlayer;
 import org.example.game.steering.PathFollowingBehavior;
 import org.example.game.steering.SteeringBehavior;
 import org.example.game.utils.GetNodeOnClick;
@@ -43,9 +42,6 @@ public class TheChosenOnePlayer extends GamePlayer implements GetNodeOnClick.Get
             pathVector.add(new Vector2(nnode.getX(), nnode.getY()));
         }
         
-        System.out.println("Clicked on node: " + node);
-        System.out.println("Path: " + pathVector);
-        
         setBehavior(new PathFollowingBehavior(pathVector));
     }
 
@@ -55,7 +51,7 @@ public class TheChosenOnePlayer extends GamePlayer implements GetNodeOnClick.Get
         SteeringBehavior behavior = getBehavior();
         if(behavior instanceof PathFollowingBehavior){
             PathFollowingBehavior pathBehavior = (PathFollowingBehavior) behavior;
-            if(pathBehavior.isLastTarget()){
+            if(pathBehavior.isLastTarget() && pathBehavior.hasReachedTarget(getCharacter())){
                 setBehavior(null);
                 getCharacter().getVelocity().set(0, 0);
             }
@@ -76,7 +72,7 @@ public class TheChosenOnePlayer extends GamePlayer implements GetNodeOnClick.Get
         this.finder = finder;
     }
 
-    void setPosition(float f, float f0) {
+    public void setPosition(float f, float f0) {
         getCharacter().getPosition().set(new Vector2(f, f0));
     }
     
