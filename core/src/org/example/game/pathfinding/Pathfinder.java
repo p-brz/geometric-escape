@@ -38,10 +38,12 @@ public class Pathfinder {
 		return pathBuilder.makePath(source, getEstimate(target));
 	}
 
-	private void checkAdjacents(PathGraph graph, MapNode target, EstimatedNode node) {
-		for(MapNode adjacent : graph.adjacents(node.getNode())){
+	private void checkAdjacents(PathGraph graph, MapNode target, EstimatedNode estimatedNode) {
+		MapNode node = estimatedNode.getNode();
+		System.out.println("Get adjacents of: " + node);
+		for(MapNode adjacent : graph.adjacents(node)){
 			if(!wasVisited(adjacent)){
-				estimateAndQueue(adjacent, node, target);
+				estimateAndQueue(adjacent, estimatedNode, target);
 			}
 		}
 	}

@@ -58,7 +58,6 @@ public class PrototypeGamePlayer extends ApplicationAdapter {
 
     protected void drawAt(SpriteBatch batch) {
         player.draw(batch);
-        System.out.println("Player at " + player.getCharacter().getPosition());
     }
 
     protected void updateBehavior() {

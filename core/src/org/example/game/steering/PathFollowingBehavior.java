@@ -3,6 +3,7 @@ package org.example.game.steering;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class PathFollowingBehavior implements SteeringBehavior {
@@ -20,6 +21,7 @@ public class PathFollowingBehavior implements SteeringBehavior {
     public PathFollowingBehavior(SeekBehavior seek) {
         path = new ArrayList<Vector2>();
         this.seekBehaviour = seek;
+        reachDistance = 0.2f;
     }
 
     public PathFollowingBehavior(List<Vector2> pathVector) {
@@ -67,6 +69,7 @@ public class PathFollowingBehavior implements SteeringBehavior {
     boolean verifyTarget(Steerable character) {
         if (hasReachedTarget(character)) {
             if (isLastTarget()) {
+            	Gdx.app.log(getClass().getSimpleName(), "Reach last target");
                 return false;
             }
             targetIndex += 1;
@@ -83,6 +86,7 @@ public class PathFollowingBehavior implements SteeringBehavior {
     }
 
     private boolean hasReachedTarget(Steerable character, Vector2 target) {
-        return target.dst(character.getPosition()) <= getReachDistance();
+    	float distanceToTarget = target.dst(character.getPosition());
+        return distanceToTarget <= getReachDistance();
     }
 }

@@ -13,6 +13,7 @@ public interface Steerable
 	/** Representa a magnitude da velocidade "desejada" para utilizar sobre este objeto.
 	 * 	Pode diferir da módulo da velocidade atual dele. Permite ao Steerable definir qual velocidade deseja estar.*/
 	public float getVelocityMag();
+	public void setVelocityMag(float velMag);
 
 	/** Variação de velocidade (valor positivo) que pode ser aplicada ao {@code Steerable} 
 	 * para modificar sua velocidade atual. Corresponde a aceleração por frame (?). */
@@ -21,4 +22,5 @@ public interface Steerable
 	public void applyForce(Vector2 force);
 	
 	public void update(float deltaT);
+
 }

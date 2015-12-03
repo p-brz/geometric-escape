@@ -7,6 +7,7 @@ import org.example.game.map.GamePathMap;
 import org.example.game.pathfinding.MapNode;
 import org.example.game.pathfinding.NodeFinder;
 import org.example.game.pathfinding.PathGraph;
+import org.example.game.player.TrackerCamera;
 import org.example.game.utils.BooleanMatrixPrinter;
 import org.example.game.utils.GetNodeOnClick;
 
@@ -22,9 +23,11 @@ import org.example.game.utils.GetNodeOnClick;
 public class PrototypeMapBuilder extends PrototypeGamePlayer {
 
     GamePathMap gameMap = new GamePathMap("maps/demonstration.tmx");
-
+    TrackerCamera cameraTracker;
+    
     @Override
     protected void draw() {
+    	cameraTracker.update();
         gameMap.draw();
         batch.setProjectionMatrix(gameMap.getCamera().combined);
         super.draw(); //To change body of generated methods, choose Tools | Templates.
@@ -35,12 +38,15 @@ public class PrototypeMapBuilder extends PrototypeGamePlayer {
         super.create();
         OrthographicCamera camera = new OrthographicCamera(800, 600);
         gameMap.initGameMap();
+
         boolean[][] walkable = gameMap.getMap().getWalkablePath();
         PathGraph graph = gameMap.getGraph();
         NodeFinder nodeFinder = new NodeFinder(graph, gameMap.getTileSize());
         
         player.setFinder(nodeFinder);
         player.setPosition(8.5f, 87.5f);
+        player.getCharacter().setVelocityMag(5f);
+        
         DimensionConverter converter = gameMap.getDimensionConverter();
         player.setDimensionConverter(converter);
         
@@ -48,21 +54,24 @@ public class PrototypeMapBuilder extends PrototypeGamePlayer {
         camera.position.y = converter.convertToScreen(87.5f);
         camera.update();
         gameMap.setCamera(camera);
+        cameraTracker = new TrackerCamera(camera, player.getCharacter(), converter);
         
         
         GetNodeOnClick getNodeOnClick = new GetNodeOnClick(camera, nodeFinder);
         Gdx.input.setInputProcessor(getNodeOnClick);
 
-        getNodeOnClick.addGetNodeListener(new GetNodeOnClick.GetNodeListener() {
-            @Override
-            public void onGetNode(MapNode node) {
-                System.out.println("Clicked on node: " + node);
-            }
-        });
+//        getNodeOnClick.addGetNodeListener(new GetNodeOnClick.GetNodeListener() {
+//            @Override
+//            public void onGetNode(MapNode node) {
+//                System.out.println("Clicked on node: " + node);
+//            }
+//        });
 
         getNodeOnClick.addGetNodeListener(player);
         getNodeOnClick.setDimensionConverter(gameMap.getDimensionConverter());
 
+       
+        
         BooleanMatrixPrinter printer = new BooleanMatrixPrinter();
         printer.printMatrix(walkable);
     }

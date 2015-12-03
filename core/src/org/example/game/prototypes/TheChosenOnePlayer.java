@@ -34,12 +34,17 @@ public class TheChosenOnePlayer extends GamePlayer implements GetNodeOnClick.Get
         Pathfinder pathfinder = new Pathfinder();
         Vector2 startPos = getCharacter().getPosition();
         
-        List<MapNode> path = pathfinder.findPath(getFinder().getGraph(), new MapNode(startPos), node);
+        MapNode currentNode = getFinder().findNode(startPos);
+        
+        List<MapNode> path = pathfinder.findPath(getFinder().getGraph(), currentNode, node);
         List<Vector2> pathVector = new ArrayList<Vector2>();
         
         for(MapNode nnode :path){
             pathVector.add(new Vector2(nnode.getX(), nnode.getY()));
         }
+        
+        System.out.println("Clicked on node: " + node);
+        System.out.println("Path: " + pathVector);
         
         setBehavior(new PathFollowingBehavior(pathVector));
     }
@@ -52,6 +57,7 @@ public class TheChosenOnePlayer extends GamePlayer implements GetNodeOnClick.Get
             PathFollowingBehavior pathBehavior = (PathFollowingBehavior) behavior;
             if(pathBehavior.isLastTarget()){
                 setBehavior(null);
+                getCharacter().getVelocity().set(0, 0);
             }
         }
     }

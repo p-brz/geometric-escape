@@ -5,15 +5,15 @@
  */
 package org.example.game.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.example.game.drawable.DimensionConverter;
 import org.example.game.drawable.DimensionedTexture;
 import org.example.game.drawable.SteerableDrawer;
 import org.example.game.steering.BasicSteerable;
 import org.example.game.steering.Steerable;
 import org.example.game.steering.SteeringBehavior;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  *

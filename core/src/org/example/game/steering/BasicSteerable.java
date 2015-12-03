@@ -11,7 +11,7 @@ public class BasicSteerable implements Steerable{
                 posIncrement = new Vector2();
 		position = new Vector2(0,0);
 		velocity = new Vector2(0,0);
-		velocityMagnitude = 0.0000000001f;
+		velocityMagnitude = 1f;
 		deltaVelocity = 1f;
 	}
 	
@@ -29,6 +29,7 @@ public class BasicSteerable implements Steerable{
 	public float getVelocityMag() {
 		return velocityMagnitude;
 	}
+	@Override
 	public void setVelocityMag(float vel){
 		this.velocityMagnitude = vel;
 	}
@@ -46,8 +47,8 @@ public class BasicSteerable implements Steerable{
 	@Override
 	public void update(float deltaT)
 	{
-            posIncrement.set(velocity);
-            posIncrement.scl(deltaT);
-            position.add(velocity);
+        posIncrement.set(velocity);
+        posIncrement.scl(deltaT);
+        position.add(posIncrement);
 	}
 }
